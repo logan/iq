@@ -1,0 +1,18 @@
+application: iq
+version: 2
+runtime: python
+api_version: 1
+
+handlers:
+- url: /json/.*
+  script: json.py
+- url: /legacy/.*
+  script: legacy.py
+- url: /testing/.*
+  script: testing.py
+- url: /(.*\.(css|js))
+  static_files: \2/\1
+  upload: (css|js)/(.*)
+  expiration: 1d
+- url: /.*
+  script: web.py

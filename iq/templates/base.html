@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/iq.css">
+    <script src="/MochiKit.js"></script>
+    <script src="/iq.js"></script>
+    <title>IQ: {% block subtitle %}Accounting for Taste{% endblock %}</title>
+  </head>
+  <body>
+    <div id="header" class="roundtop">
+      <div id="logo">
+        <a href="/">
+          <img src="http://ircquotes.com/static/image/ircquoteslogo.png">
+        </a>
+      </div>
+      <div id="search">
+        <form method="GET" action="/search">
+          <input type="text" name="q" size="32" value="{{search_query|escape}}">
+          <input type="submit" value="Search">
+        </form>
+      </div>
+      <div style="height: 79px">&nbsp;</div>
+{% block user %}
+      <div id="user" class="nav">
+{%   if account.trusted %}
+        <span id="user_control">{{ account.name }} &#9662;</span>
+        <div id="user_menu" style="display: none">
+          <a id="signout_button">
+            Sign out
+          </a>
+        </div>
+{%   else %}
+        <span id="user_control">Sign In &#9662;</span>
+        <div id="user_menu" style="display: none">
+          <div id="signin_form" method="POST" action="/login">
+            <table>
+              <tr>
+                <td>
+                  Account
+                  <input id="signin_account" tabindex="1" type="text" name="name" size="12">
+                  <br>
+                  <a href="/create-account">Want to create a new account?</a>
+                  <br>
+                  <a href="/lookup-account">Forgot your account?</a>
+                </td>
+                <td>
+                  Password
+                  <input id="signin_password" tabindex="2" type="password" name="password" size="12">
+                  <br>
+                  <a href="/reset-password">Forgot your password?</a>
+                </td>
+                <td>
+                  <div id="signin_button" class="round">
+                    Ok
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td id="signin_status" colspan="2">&nbsp;</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+{%   endif %}
+      </div>
+{% endblock %}
+      <div id="navbar">
+        <div id="browse_control" class="nav">
+          Quotes &#9662;
+          <div id="browse_menu" style="display: none">
+            <a href="/browse-recent">Recent</a>
+{% if account.trusted %}
+            <a href="/browse-draft">Drafts</a>
+{% endif %}
+          </div>
+        </div>
+{% if account.trusted %}
+        <div class="nav">
+          <a href="/submit">Create New</a>
+        </div>
+{% endif %}
+      </div>
+    </div>
+    <div id="content_container">
+      <div id="content">
+{% block content %}
+&nbsp;
+{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
+

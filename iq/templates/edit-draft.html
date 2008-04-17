@@ -1,0 +1,39 @@
+{% comment %}
+Provides an editor for quote drafts.
+
+Expected variables:
+
+- quote: Quote entity being edited
+
+{% endcomment %}
+{% extends "base.html" %}
+{% block subtitle %}Edit Draft{% endblock %}
+{% block content %}
+<h1>Editing Draft</h1>
+<hr>
+<form class="editor_form" method="POST" action="/edit-draft">
+  <input type="hidden" name="quote" value="{{ quote.key }}">
+  <table class="form">
+    <tr>
+      <td class="label">Quote:</td>
+      <td>
+        <textarea name="dialog" rows="10" cols="80">{{draft.dialog_source|escape}}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" name="save" value="Save Draft">
+        <input type="submit" name="discard" value="Discard Draft">
+        <input type="submit" name="publish" value="Publish Changes">
+      </td>
+    </tr>
+  </table>
+</form>
+{%   include "render-quote.html" %}
+{%   if dupes %}
+<hr>
+{%   for quote in dupes %}
+{%     include "render-quote.html" %}
+{%   endfor %}
+{% endif %}
+{% endblock %}
