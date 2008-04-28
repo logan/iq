@@ -124,7 +124,6 @@ INDEX_CONFIG = IndexSet(
                Property('-submitted'),
                ancestor=True,
               ),
-
         ),
 )
 
