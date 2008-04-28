@@ -164,7 +164,6 @@ class Quote(search.SearchableModel):
   location_labels = db.StringListProperty()
 
   # State bits
-  deleted = db.BooleanProperty(default=False)
   draft = db.BooleanProperty(required=True, default=True)
 
   # Timestamps
