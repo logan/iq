@@ -33,6 +33,10 @@ APP_CONFIG_TEMPLATE = {
       'script': 'facebook.py',
     },
     {
+      'url': r'/feed.*',
+      'script': 'feed.py',
+    },
+    {
       'url': r'/json.*',
       'script': 'json.py',
     },
@@ -92,37 +96,48 @@ def Property(name):
 INDEX_CONFIG = IndexSet(
     Kind('Quote',
          Index(Property('__searchable_text_index'),
-               Property('draft'),
+               Property('state'),
               ),
 
-         Index(Property('submitted')),
-
-         Index(Property('-submitted')),
-
-         Index(Property('draft'),
+         Index(
+               Property('state'),
                Property('submitted'),
               ),
 
-         Index(Property('draft'),
+         Index(
+               Property('state'),
                Property('-submitted'),
               ),
 
-         Index(Property('submitted'),
-               ancestor=True,
-              ),
-
-         Index(Property('-submitted'),
-               ancestor=True,
-              ),
-
-         Index(Property('draft'),
+         Index(
+               Property('state'),
                Property('submitted'),
                ancestor=True,
               ),
 
-         Index(Property('draft'),
+         Index(
+               Property('state'),
                Property('-submitted'),
                ancestor=True,
+              ),
+
+         Index(
+               Property('labels'),
+               Property('state'),
+               Property('submitted'),
+              ),
+
+         Index(
+               Property('labels'),
+               Property('state'),
+               Property('-submitted'),
+              ),
+        ),
+
+    Kind('Action',
+         Index(
+               Property('verb'),
+               Property('-timestamp'),
               ),
         ),
 )
